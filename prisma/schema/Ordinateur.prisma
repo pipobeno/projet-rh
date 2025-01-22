@@ -1,0 +1,11 @@
+model Ordinateur {
+    id       Int     @id @default(autoincrement())
+    nom      String
+    prenom   String
+    mail     String  @unique
+    password String
+    age      Int?
+    genre    String?
+    userId   Int
+    user     User    @relation(fields: [userId], references: [id])
+}
