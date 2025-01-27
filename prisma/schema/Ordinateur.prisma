@@ -1,12 +1,12 @@
 model Ordinateur {
     id        Int     @id @default(autoincrement())
     adressMac String
-    nom       String
-    prenom    String
+    lastNameO       String
+    dirstName    String
     mail      String  @unique
-    password  String
+    passwordO  String
     age       Int?
-    genre     String?
+    gender     String?
     userId    Int
     user      User    @relation(fields: [userId], references: [id])
 }

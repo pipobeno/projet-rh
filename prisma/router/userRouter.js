@@ -2,7 +2,7 @@ const userRouter = require('express').Router();
 
 const bcrypt = require("bcrypt");
 
-const hashPasswordExtension = require('../services/extensions/hashPasswordExtension');
+const hashPasswordExtension = require('../../services/extensions/hashPasswordExtension');
 
 const { PrismaClient } = require('@prisma/client');
 
