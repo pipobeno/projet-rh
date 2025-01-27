@@ -1,0 +1,58 @@
+{% extends "../layouts/base.html.twig" %}
+
+{% block style %}
+    {# <link rel="stylesheet" href="/assets/css/subscribe.css"> #}
+{% endblock %}
+
+{% block title %}
+{# double {{}} = variable #}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block main %}
+<main>
+    <section>
+        <div>
+            <h2>Formulaire d'inscription</h2>
+        </div>
+        <div>
+            <form action="./register" method="post">
+                <div>
+                    <label for="socialreason">Votre Raison sociale</label>
+                    <input id="socialreason" type="text" name="socialreason">
+                </div>
+                <div>
+                    <label for="lastName">Votre Nom</label>
+                    <input id="lastName" type="text" name="lastName">
+                </div>
+                <div>
+                    <label for="siret">Votre numero de SIRET</label>
+                    <input id="siret" type="text" name="siret">
+                </div>
+                <div>
+                    <label for="email">Votre adresse e-mail</label>
+                    <input id="email" type="text" name="email">
+                    {% if error %}
+                    <p>{{error.email }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="password">Votre mot de passe</label>
+                    <input id="password" type="password" name="password">
+                </div>
+                <div>
+                    <label for="confirmPassword">Confirmez votre mot de passe</label>
+                    <input id="confirmPassword" type="password" name="confirmPassword">
+                    {% if error %}
+                    <p>{{error.confirmPassword }}</p>
+                    {% endif %}
+                    
+                </div>
+                <div>
+                    <button type="submit">Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}
