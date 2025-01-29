@@ -1,12 +1,7 @@
 {% extends "../layouts/base.html.twig" %}
 
-{% block style %}
-	{# <link rel="stylesheet" href="/assets/css/subscribe.css"> #}
-{% endblock %}
-
 {% block title %}
-	<p>Page d'accueil Bienvenue ,
-		{{ user.firstName }}</p>
+	<p>Page d'accueil Bienvenue, {{ user.firstName }}</p>
 {% endblock %}
 
 {% block main %}
@@ -15,7 +10,6 @@
 			<div>
 				<h2>Ajout d'un ordinateur</h2>
 			</div>
-
 			<div>
 				<form action="/addOrdinateur" method="post">
 					<div>
@@ -34,43 +28,30 @@
 				<h2>Liste des ordinateurs</h2>
 				{% for ordinateur in ordinateurs %}
 					<div>
-						<h3>Adresse MAC :
-							{{ ordinateur.adressMac }}</h3>
+						<h3>Adresse MAC : {{ ordinateur.adressMac }}</h3>
+						<a href="/ordinateur/{{ ordinateur.id }}">Voir l'employé(e) associé</a>
 						<a href="/deleteOrdinateur/{{ ordinateur.id }}">Supprimer</a>
-						<form action="/addEmploye/{{ ordinateur.id }}" method="POST">
-							<div>
-								<label for="nom">Nom de l'Employé</label>
-								<input type="text" id="nom" name="nom">
-							</div>
-							<div>
-								<label for="prenom">Prénom de l'Employé</label>
-								<input type="text" id="prenom" name="prenom">
-							</div>
-							<div>
-								<label for="email">Email de l'Employé</label>
-								<input type="text" id="email" name="email">
-							</div>
-							<div>
-								<label for="password">Mot de Passe</label>
-								<input type="password" id="password" name="password">
-							</div>
-							<div>
-								<label for="age">Âge de l'Employé</label>
-								<input type="text" id="age" name="age">
-							</div>
-							<div>
-								<label for="genre">Genre de l'Employé</label>
-								<input type="text" id="genre" name="genre">
-							</div>
-							<div>
-								<button type="submit">Créer un employé(e)</button>
-							</div>
-						</form>
 					</div>
 				{% endfor %}
 			</section>
 		{% else %}
 			<p>Aucun ordinateur n'est encore ajouté.</p>
+		{% endif %}
+
+		{% if employes|length > 0 %}
+			<section>
+				<h2>Liste des Employés</h2>
+				{% for employe in employes %}
+					<div>
+						<h3>{{ employe.nom }} {{ employe.prenom }}</h3>
+						<p>Email : {{ employe.email }}</p>
+						<p>Âge : {{ employe.age }}</p>
+						<p>Genre : {{ employe.genre }}</p>
+						<a href="/editEmploye/{{ employe.id }}">Modifier</a>
+						<a href="/deleteEmploye/{{ employe.id }}">X</a>
+					</div>
+				{% endfor %}
+			</section>
 		{% endif %}
 	</main>
 {% endblock %}

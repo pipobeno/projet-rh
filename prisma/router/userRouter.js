@@ -72,18 +72,18 @@ userRouter.post('/login', async (req, res) => {
 })
 
 
-userRouter.get("/",authguard , async (req, res) => {
-    const user = await prisma.user.findUnique({
-        where: {
-            id: req.session.user.id
-        },
-        include: {
-            ordinateurs: true
-        }
-    });
+// userRouter.get("/",authguard , async (req, res) => {
+//     const user = await prisma.user.findUnique({
+//         where: {
+//             id: req.session.user.id
+//         },
+//         include: {
+//             ordinateurs: true
+//         }
+//     });
     
-    res.render('pages/index.html.twig', {title: "acceuil", user: req.session.user, ordinateurs:user.ordinateurs});
-})
+//     res.render('pages/index.html.twig', {title: "acceuil", user: req.session.user, ordinateurs:user.ordinateurs});
+// })
 
 
 
