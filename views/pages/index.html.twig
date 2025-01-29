@@ -5,47 +5,72 @@
 {% endblock %}
 
 {% block title %}
-	{# double {{}} = variable #}
 	<p>Page d'accueil Bienvenue ,
-		{{user.lastName}}</p>
+		{{ user.firstName }}</p>
 {% endblock %}
 
 {% block main %}
 	<main>
 		<section>
 			<div>
-				<h2>Formulaire d'inscription</h2>
+				<h2>Ajout d'un ordinateur</h2>
 			</div>
+
 			<div>
 				<form action="/addOrdinateur" method="post">
 					<div>
-						<label for="lastNameO">Nom de famille</label>
-						<input id="lastNameO" type="text" name="lastNameO">
+						<label for="adressMac">Adresse Mac de votre Ordinateur</label>
+						<input id="adressMac" type="text" name="adressMac" value="{% if ordinateur %}{{ ordinateur.adressMac }}{% endif %}" required>
 					</div>
 					<div>
-						<label for="author">Auteur du livre</label>
-						<input id="author" type="text" name="author">
+						<button type="submit">Ajouter</button>
 					</div>
-				</div>
-				<div>
-					<button type="submit">Envoyer</button>
-				</div>
-			</form>
-		</div>
-	</section>
-	{% if books|length > 0 %}
+				</form>
+			</div>
+		</section>
 
-		<section>
-
-			<h2>Liste des livres</h2>
-			{% for book in books %}
-				<div>
-					<h3>{{book.title}}</h3>
-				</div>
-				<div>
-					<h3>{{book.author}}</h3>
-				</div>
-			{% endfor %}
+		{% if ordinateurs|length > 0 %}
+			<section>
+				<h2>Liste des ordinateurs</h2>
+				{% for ordinateur in ordinateurs %}
+					<div>
+						<h3>Adresse MAC :
+							{{ ordinateur.adressMac }}</h3>
+						<a href="/deleteOrdinateur/{{ ordinateur.id }}">Supprimer</a>
+						<form action="/addEmploye/{{ ordinateur.id }}" method="POST">
+							<div>
+								<label for="nom">Nom de l'Employé</label>
+								<input type="text" id="nom" name="nom">
+							</div>
+							<div>
+								<label for="prenom">Prénom de l'Employé</label>
+								<input type="text" id="prenom" name="prenom">
+							</div>
+							<div>
+								<label for="email">Email de l'Employé</label>
+								<input type="text" id="email" name="email">
+							</div>
+							<div>
+								<label for="password">Mot de Passe</label>
+								<input type="password" id="password" name="password">
+							</div>
+							<div>
+								<label for="age">Âge de l'Employé</label>
+								<input type="text" id="age" name="age">
+							</div>
+							<div>
+								<label for="genre">Genre de l'Employé</label>
+								<input type="text" id="genre" name="genre">
+							</div>
+							<div>
+								<button type="submit">Créer un employé(e)</button>
+							</div>
+						</form>
+					</div>
+				{% endfor %}
+			</section>
+		{% else %}
+			<p>Aucun ordinateur n'est encore ajouté.</p>
 		{% endif %}
-	</section>
-</main>{% endblock %}
+	</main>
+{% endblock %}

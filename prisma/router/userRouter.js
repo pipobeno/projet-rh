@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 
 const hashPasswordExtension = require('../../services/extensions/hashPasswordExtension');
 
+const authguard = require('../../services/authguard');
+
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient().$extends(hashPasswordExtension)
@@ -43,6 +45,7 @@ userRouter.post('/register', async (req, res) => {
     }
 });
 
+
 userRouter.get('/login', (req, res) => {
     res.render('pages/login.html.twig', { title: "connexion" });
 })
@@ -67,6 +70,21 @@ userRouter.post('/login', async (req, res) => {
         res.render('pages/login.html.twig', { title: "connexion", error });
     }
 })
+
+
+userRouter.get("/",authguard , async (req, res) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: req.session.user.id
+        },
+        include: {
+            ordinateurs: true
+        }
+    });
+    
+    res.render('pages/index.html.twig', {title: "acceuil", user: req.session.user, ordinateurs:user.ordinateurs});
+})
+
 
 
 module.exports = userRouter
