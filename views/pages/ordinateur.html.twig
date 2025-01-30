@@ -6,17 +6,17 @@
 {% endblock %}
 
 {% block main %}
-	<main>
-		<section>
-			<h2>Détails de l'ordinateur</h2>
-			<p>
-				<strong>Adresse MAC :</strong>
-				{{ ordinateur.adressMac }}</p>
-			<a href="/deleteOrdinateur/{{ ordinateur.id }}">Supprimer l'ordinateur</a>
-		</section>
-
-		{% if employes %}
+<main>
 	<section>
+		<h2>Détails de l'ordinateur</h2>
+		<p>
+			<strong>Adresse MAC :</strong>
+			{{ ordinateur.adressMac }}</p>
+		<a href="/deleteOrdinateur/{{ ordinateur.id }}">Supprimer l'ordinateur</a>
+	</section>
+
+	{% if employes %}
+		<section>
 			<h2>Employé(e)</h2>
 			<div>
 				<h3>{{ employes.nom }}
@@ -27,95 +27,72 @@
 					{{ employes.age }}</p>
 				<p>Genre :
 					{{ employes.genre }}</p>
-				{# <a href="/editEmploye/{{ employes.id }}">Modifier</a>
-				<a href="/deleteEmploye/{{ employes.id }}">X</a> #}
 			</div>
 		</section>
 
+		<section>
+			<a href="/deleteEmploye/{{ employes.id }}">Supprimer cet employé</a>
 
-
-
-			<section>
-				{# <h2>Employé associé</h2>
-				<p>
-					<strong>Nom :</strong>
-					{{ employes.nom }}</p>
-				<p>
-					<strong>Prénom :</strong>
-					{{ employes.prenom }}</p>
-				<p>
-					<strong>Email :</strong>
-					{{ employes.email }}</p>
-				<p>
-					<strong>Âge :</strong>
-					{{ employes.age }}</p>
-				<p>
-					<strong>Genre :</strong>
-					{{ employes.genre }}</p> #}
-				<a href="/deleteEmploye/{{ employes.id }}">Supprimer cet employé</a>
-
-				<h2>Modifier l'Employé</h2>
-				<form {% if employes %} action="/editEmploye/{{ employes.id }}" {% else %} action="/addEmploye/{{ ordinateur.id }}" {% endif %} method="post">
-					<div>
+			<h2>Modifier l'Employé</h2>
+			<form {% if employes %} action="/editEmploye/{{ employes.id }}" {% else %} action="/addEmploye/{{ ordinateur.id }}" {% endif %} method="post">
+				<div>
 					<input type="hidden" value="{{ ordinateur.id }}" name="ordinateur">
-						<label for="nom">Nom :</label>
-						<input type="text" id="nom" name="nom" value="{{ employes.nom }}">
-					</div>
-					<div>
-						<label for="prenom">Prénom :</label>
-						<input type="text" id="prenom" name="prenom" value="{{ employes.prenom }}">
-					</div>
-					<div>
-						<label for="email">Email :</label>
-						<input type="text" id="email" name="email" value="{{ employes.email }}">
-					</div>
-					<div>
-						<label for="age">Âge :</label>
-						<input type="text" id="age" name="age" value="{{ employes.age }}">
-					</div>
-					<div>
-						<label for="genre">Genre :</label>
-						<input type="text" id="age" name="age" value="{{ employes.genre }}">
-
-					</select>
+					<label for="nom">Nom :</label>
+					<input type="text" id="nom" name="nom" value="{{ employes.nom }}">
 				</div>
-				<button type="submit">Modifier</button>
-			</form>
-		</section>
-		{# {% else %}
-					<section>
-						<h2>Ajouter un Employé à cet ordinateur</h2>
-						<form action="/addEmploye/{{ ordinateur.id }}" method="POST">
-							<div>
-								<label for="nom">Nom :</label>
-								<input type="text" id="nom" name="nom" required>
-							</div>
-							<div>
-								<label for="prenom">Prénom :</label>
-								<input type="text" id="prenom" name="prenom" required>
-							</div>
-							<div>
-								<label for="email">Email :</label>
-								<input type="text" id="email" name="email" required>
-							</div>
-							<div>
-								<label for="password">Mot de Passe :</label>
-								<input type="password" id="password" name="password" required>
-							</div>
-							<div>
-								<label for="age">Âge :</label>
-								<input type="text" id="age" name="age">
-							</div>
-							<div>
-								<label for="genre">Genre :</label>
-		                        <input type="text" id="genre" name="genre">
-								</select>
-							</div>
-							<button type="submit">Ajouter</button>
-						</form>
-					</section> #}
-	{% endif %}
-	{% if employes %}
-	
-	{% endif %}
-</main>{% endblock %}
+				<div>
+					<label for="prenom">Prénom :</label>
+					<input type="text" id="prenom" name="prenom" value="{{ employes.prenom }}">
+				</div>
+				<div>
+					<label for="email">Email :</label>
+					<input type="text" id="email" name="email" value="{{ employes.email }}">
+				</div>
+				<div>
+					<label for="age">Âge :</label>
+					<input type="text" id="age" name="age" value="{{ employes.age }}">
+				</div>
+				<div>
+					<label for="genre">Genre :</label>
+					<input type="text" id="age" name="age" value="{{ employes.genre }}">
+
+				</select>
+			</div>
+			<button type="submit">
+				{% if employes %}Modifier{% else %}Ajouter
+				{% endif %}
+			</button>
+		</form>
+	</section>
+{% else %}
+	<section>
+		<h2>Ajouter un Employé à cet ordinateur</h2>
+		<form action="/addEmploye/{{ ordinateur.id }}" method="POST">
+			<div>
+				<label for="nom">Nom :</label>
+				<input type="text" id="nom" name="nom">
+			</div>
+			<div>
+				<label for="prenom">Prénom :</label>
+				<input type="text" id="prenom" name="prenom">
+			</div>
+			<div>
+				<label for="email">Email :</label>
+				<input type="text" id="email" name="email">
+			</div>
+			<div>
+				<label for="password">Mot de Passe :</label>
+				<input type="password" id="password" name="password">
+			</div>
+			<div>
+				<label for="age">Âge :</label>
+				<input type="text" id="age" name="age">
+			</div>
+			<div>
+				<label for="genre">Genre :</label>
+				<input type="text" id="genre" name="genre">
+			</select>
+		</div>
+		<button type="submit">Ajouter</button>
+	</form>
+</section>{% endif %}</main>{% endblock %}

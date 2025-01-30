@@ -15,6 +15,10 @@ userRouter.get('/register', (req, res) => {
     res.render('pages/register.html.twig')
 });
 
+userRouter.get('/logout', (req,res) => {
+    req.session.destroy();
+    res.redirect('/login');
+})
 
 userRouter.post('/register', async (req, res) => {
     try {

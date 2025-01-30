@@ -106,7 +106,7 @@ employeRouter.get("/editEmploye/:id", authguard, async (req, res) => {
 
 employeRouter.post("/editEmploye/:id", authguard, async (req, res) => {
     try {
-        const { nom, prenom, age, genre } = req.body;
+        const { nom, prenom, age, genre,email } = req.body;
 
         if (!nom.match(/^[a-zA-Z0-9]+$/) || !prenom.match(/^[a-zA-Z0-9]+$/)) {
             throw new Error("Le nom et le prénom ne peuvent contenir que des lettres et des chiffres.");
@@ -121,7 +121,8 @@ employeRouter.post("/editEmploye/:id", authguard, async (req, res) => {
                 nom,
                 prenom,
                 age: age ? parseInt(age) : null,
-                genre
+                genre,
+                email
             }
         });
 

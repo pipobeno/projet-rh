@@ -17,10 +17,22 @@
 
 
 <header>
-    <nav>
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/register">Inscription</a></li>
-        </ul>
-    </nav>
-</header>
+	<nav>
+		<ul>
+			{% if user %}
+				<li>
+					<a href="/logout">déconnexion</a>
+			{% else %}
+				</li>
+
+				<li>
+					<a href="/">Accueil</a>
+				</li>
+				<li>
+					<a href="/register">Inscription</a>
+				</li>
+
+			</li>
+		{% endif %}
+	</ul>
+</nav></header>
