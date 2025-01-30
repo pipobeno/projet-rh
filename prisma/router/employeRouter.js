@@ -36,12 +36,17 @@ employeRouter.post("/addEmploye/:ordinateurId", authguard, async (req, res) => {
                 password,
                 age: age ? parseInt(age) : null,
                 genre,
-                ordinateurId
+                ordinateur: {
+                    connect: {id: ordinateurId}
+                },
+                userid: req.session.user.id
             }
         });
 
         res.redirect(`/ordinateur/${ordinateurId}`);
     } catch (error) {
+        console.log(error);
+        
         res.status(500).send("Erreur lors de l'ajout de l'employé.");
     }
 });
@@ -70,6 +75,9 @@ employeRouter.get("/editEmploye/:id", authguard, async (req, res) => {
             where: {
                 id: parseInt(req.params.id),
                 userid: req.session.user.id
+            },
+            include: {
+                ordinateur: true
             }
         });
 
@@ -83,7 +91,7 @@ employeRouter.get("/editEmploye/:id", authguard, async (req, res) => {
             }
         });
 
-        res.render("pages/index.html.twig", {
+        res.render("pages/ordinateur.html.twig", {
             employe,
             title: "Modifier Employé",
             user: req.session.user,
@@ -117,11 +125,11 @@ employeRouter.post("/editEmploye/:id", authguard, async (req, res) => {
             }
         });
 
-        res.redirect("/");
+        res.redirect('/ordinateur/' + req.body.ordinateur)
     } catch (error) {
         console.error(error);
 
-        res.render("pages/index.html.twig", {
+        res.render("pages/ordinateur.html.twig", {
             user: req.session.user,
             error: error.message,
             employes: await prisma.employe.findMany({
@@ -146,9 +154,13 @@ employeRouter.get("/ordinateur/:id", authguard, async (req, res) => {
         const ordinateur = await prisma.ordinateur.findUnique({
             where: { id: ordinateurId }
         });
-        const employes = await prisma.employe.findMany({
+        const employes = await prisma.employe.findFirst({
             where: {
-                id: ordinateurId
+                ordinateur: {
+                    is:{
+                        id:ordinateurId
+                    }
+                }
             }
         });
         res.render("pages/ordinateur.html.twig", {
