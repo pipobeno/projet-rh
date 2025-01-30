@@ -1,6 +1,161 @@
+/* Styles généraux */
 body {
-    background-color: antiquewhite;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f1f1f1;
+    color: #4A403A; /* Marron foncé pour bon contraste */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
 }
-footer {
-    background-color: aquamarine;
+
+/* Conteneur principal */
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    width: 50%;
+    background-color: #F7D6E0; /* Rose pâle */
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #a1526c;
+    text-decoration: none;
+}
+/* Titres */
+h2 {
+    font-size: 2.5rem;
+    color: #4A403A;
+    margin-bottom: 20px;
+}
+
+/* Formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form div {
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: left;
+}
+
+label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4A403A;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #A98B7B; /* Marron pâle */
+    border-radius: 10px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #7D6356; /* Marron légèrement plus foncé */
+    outline: none;
+}
+
+/* Bouton */
+button {
+    background-color: #A98B7B; /* Marron pâle */
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #7D6356;
+}
+
+/* Messages d'erreur */
+p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4A403A;
+}
+
+/*///////////////*/
+
+
+/* Styles généraux */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1; /* Jaune pâle */
+    color: #4A403A; /* Marron foncé */
+}
+
+/* Barre de navigation */
+header {
+    background-color: #A98B7B; /* Marron pâle */
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Assure que la barre de navigation soit toujours au-dessus */
+}
+/* Logo ou titre */
+header h1 {
+    font-size: 1.8rem;
+    color: white;
+    margin: 0;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #7D6356; /* Marron foncé */
 }

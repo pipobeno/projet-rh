@@ -1,8 +1,10 @@
 {% extends "../layouts/base.html.twig" %}
-
+{% block style %}
+    <link rel="stylesheet" href="/assets/css/subscribe.css">
+{% endblock %}
 {% block title %}
-	<p>Ordinateur :
-		{{ ordinateur.adressMac }}</p>
+	{# <p>Ordinateur :
+		{{ ordinateur.adressMac }}</p> #}
 {% endblock %}
 
 {% block main %}
