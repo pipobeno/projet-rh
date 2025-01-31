@@ -1,10 +1,10 @@
 {% extends "../layouts/base.html.twig" %}
 {% block style %}
-    <link rel="stylesheet" href="/assets/css/subscribe.css">
+	<link rel="stylesheet" href="/assets/css/subscribe.css">
 {% endblock %}
 {% block title %}
 	{# <p>Ordinateur :
-		{{ ordinateur.adressMac }}</p> #}
+			{{ ordinateur.adressMac }}</p> #}
 {% endblock %}
 
 {% block main %}
@@ -49,6 +49,9 @@
 				<div>
 					<label for="email">Email :</label>
 					<input type="text" id="email" name="email" value="{{ employes.email }}">
+					{% if error %}
+                    <p>{{error.email }}</p>
+                    {% endif %}
 				</div>
 				<div>
 					<label for="age">Âge :</label>
@@ -80,7 +83,10 @@
 			</div>
 			<div>
 				<label for="email">Email :</label>
-				<input type="text" id="email" name="email">
+				<input type="text" id="email" name="email" required>
+				{% if error %}
+                    <p>{{error.email }}</p>
+                    {% endif %}
 			</div>
 			<div>
 				<label for="password">Mot de Passe :</label>

@@ -22,30 +22,35 @@ userRouter.get('/logout', (req,res) => {
 
 userRouter.post('/register', async (req, res) => {
     try {
-        const { socialreason, lastName, siret, email,password, confirmPassword } = req.body;
-        if (password !== confirmPassword) {
-            throw ({ confirmPassword: "Les mots de passe ne correspondent pas" })
-        } else {
-            // data : { nom dans le model : req.body.name du formulaire }
-            const user = await prisma.user.create({
-                data: {
-                    socialreason: req.body.socialreason,
-                    lastName: req.body.lastName,
-                    siret: req.body.siret,
-                    email: req.body.email,
-                    password: req.body.password
-                }
-            })
-            res.redirect('/login');
+        const { socialreason, lastName, siret, email, password, confirmPassword } = req.body;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailRegex.test(email)) {
+            throw ({ email: "L'adresse e-mail est invalide" });
         }
-    }
-    catch (error) {
+
+        if (password !== confirmPassword) {
+            throw ({ confirmPassword: "Les mots de passe ne correspondent pas" });
+        }
+
+        const user = await prisma.user.create({
+            data: {
+                socialreason,
+                lastName,
+                siret,
+                email,
+                password
+            }
+        });
+
+        res.redirect('/login');
+    } catch (error) {
         if (error.code === "P2002") {
             error = { email: "Cette adresse mail est déjà utilisée" };
         }
         console.log(error);
-        
-        res.render('pages/register.html.twig', { title: "Inscription", error })
+
+        res.render('pages/register.html.twig', { title: "Inscription", error });
     }
 });
 

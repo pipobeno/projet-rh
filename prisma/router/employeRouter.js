@@ -27,6 +27,11 @@ employeRouter.post("/addEmploye/:ordinateurId", authguard, async (req, res) => {
     try {
         const { nom, prenom, email, password, age, genre } = req.body;
         const ordinateurId = parseInt(req.params.ordinateurId);
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailRegex.test(email)) {
+            throw ({ email: "L'adresse e-mail est invalide" });
+        }
 
         const newEmploye = await prisma.employe.create({
             data: {
@@ -45,8 +50,10 @@ employeRouter.post("/addEmploye/:ordinateurId", authguard, async (req, res) => {
 
         res.redirect(`/ordinateur/${ordinateurId}`);
     } catch (error) {
+        if (error.code === "P2002") {
+            error = { email: "Cette adresse mail est déjà utilisée" };
+        }
         console.log(error);
-        
         res.status(500).send("Erreur lors de l'ajout de l'employé.");
     }
 });
